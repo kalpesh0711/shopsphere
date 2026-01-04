@@ -1,4 +1,9 @@
+import { useContext } from "react";
+import { CartContext } from "../context/CartContext";
+
 const ProductCard = ({ product, onQuickView, onCompare }) => {
+  const { addToCart } = useContext(CartContext);
+
 
   return (
     <div style={{ border: "1px solid #ccc", padding: 10, margin: 10 }}>
@@ -13,6 +18,11 @@ const ProductCard = ({ product, onQuickView, onCompare }) => {
        <button onClick={() => onCompare(product)}>
         Compare
       </button>
+
+      <button onClick={() => addToCart(product)}>
+  Add to Cart
+</button>
+
     </div>
   );
 };
