@@ -1,4 +1,9 @@
-const Cart = ({ cartItems, setCartItems }) => {
+import { useContext } from "react";
+import { CartContext } from "../context/CartContext";
+
+const Cart = () => {
+  const { cartItems, removeFromCart } = useContext(CartContext);
+
   return (
     <div>
       <h2>Cart Page</h2>
@@ -7,13 +12,11 @@ const Cart = ({ cartItems, setCartItems }) => {
         <p>Your cart is empty</p>
       ) : (
         cartItems.map((item, index) => (
-          <div key={index}>
+          <div key={index} style={{ marginBottom: 10 }}>
             <p>{item.title}</p>
-            <button
-              onClick={() =>
-                setCartItems(cartItems.filter((_, i) => i !== index))
-              }
-            >
+            <p>₹ {item.price}</p>
+
+            <button onClick={() => removeFromCart(index)}>
               Remove
             </button>
           </div>

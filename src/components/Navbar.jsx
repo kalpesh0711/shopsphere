@@ -1,6 +1,10 @@
 import { Link } from "react-router-dom";
+import { useContext } from "react";
+import { CartContext } from "../context/CartContext";
 
-const Navbar = ({ cartItems }) => {
+const Navbar = () => {
+  const { cartItems } = useContext(CartContext);
+
   return (
     <div style={{ display: "flex", justifyContent: "space-between", padding: 15 }}>
       <Link to="/" style={{ textDecoration: "none" }}>

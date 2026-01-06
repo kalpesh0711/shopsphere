@@ -4,7 +4,7 @@ import ProductCard from "../components/ProductCard";
 import QuickPeek from "../components/QuickPeek";
 import CompareBar from "../components/CompareBar";
 
-const Home = ({ cartItems, setCartItems }) => {
+const Home = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
@@ -20,23 +20,15 @@ const Home = ({ cartItems, setCartItems }) => {
     });
   }, []);
 
-  const addToCart = (product) => {
-    setCartItems([...cartItems, product]);
-  };
-
   const toggleCompare = (product) => {
     setCompareList((prev) => {
       const exists = prev.find(p => p.id === product.id);
 
-      if (exists) {
-        return prev.filter(p => p.id !== product.id);
-      }
-
+      if (exists) return prev.filter(p => p.id !== product.id);
       if (prev.length === 2) {
         alert("You can compare only 2 products");
         return prev;
       }
-
       return [...prev, product];
     });
   };
@@ -47,10 +39,8 @@ const Home = ({ cartItems, setCartItems }) => {
     const matchesSearch = product.title
       .toLowerCase()
       .includes(search.toLowerCase());
-
     const matchesCategory =
       category === "all" || product.category === category;
-
     return matchesSearch && matchesCategory;
   });
 
@@ -83,7 +73,6 @@ const Home = ({ cartItems, setCartItems }) => {
             setIsPreviewOpen(true);
           }}
           onCompare={toggleCompare}
-          onAddToCart={addToCart}
         />
       ))}
 
