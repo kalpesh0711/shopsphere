@@ -4,26 +4,83 @@ export const CartContext = createContext();
 
 const CartProvider = ({ children }) => {
   const [cartItems, setCartItems] = useState(() => {
-    const storedCart = localStorage.getItem("cart");
-    return storedCart ? JSON.parse(storedCart) : [];
-  });
+  const storedCart = localStorage.getItem("cart");
+  if (!storedCart) return [];
+
+  return JSON.parse(storedCart).map(item => ({
+    ...item,
+    quantity: item.quantity ?? 1
+  }));
+});
+
 
   useEffect(() => {
     localStorage.setItem("cart", JSON.stringify(cartItems));
   }, [cartItems]);
 
   const addToCart = (product) => {
-    setCartItems([...cartItems, product]);
-  };
+  setCartItems((prev) => {
+    const exists = prev.find(item => item.id === product.id);
 
-  const removeFromCart = (index) => {
-    setCartItems(cartItems.filter((_, i) => i !== index));
-  };
+    if (exists) {
+      return prev.map(item =>
+        item.id === product.id
+          ? { ...item, quantity: item.quantity + 1 }
+          : item
+      );
+    }
+
+    return [...prev, { ...product, quantity: 1 }];
+  });
+};
+  
+  const increaseQty = (id) => {
+  setCartItems((prev) =>
+    prev.map(item =>
+      item.id === id
+        ? { ...item, quantity: item.quantity + 1 }
+        : item
+    )
+  );
+};
+
+const decreaseQty = (id) => {
+  setCartItems((prev) =>
+    prev
+      .map(item =>
+        item.id === id
+          ? { ...item, quantity: item.quantity - 1 }
+          : item
+      )
+      .filter(item => item.quantity > 0)
+  );
+};
+
+const totalPrice = cartItems.reduce(
+  (total, item) => total + item.price * item.quantity,
+  0
+);
+
+
+
+  const removeFromCart = (id) => {
+  setCartItems((prev) => prev.filter(item => item.id !== id));
+};
+
 
   return (
-    <CartContext.Provider
-      value={{ cartItems, addToCart, removeFromCart }}
-    >
+   <CartContext.Provider
+  value={{
+  cartItems,
+  addToCart,
+  increaseQty,
+  decreaseQty,
+  removeFromCart,
+  totalPrice
+}}
+
+>
+
       {children}
     </CartContext.Provider>
   );
