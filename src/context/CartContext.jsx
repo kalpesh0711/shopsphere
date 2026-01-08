@@ -61,10 +61,12 @@ const totalPrice = cartItems.reduce(
   0
 );
 
-
-
   const removeFromCart = (id) => {
   setCartItems((prev) => prev.filter(item => item.id !== id));
+};
+
+const clearCart = () => {
+  setCartItems([]);
 };
 
 
@@ -76,6 +78,7 @@ const totalPrice = cartItems.reduce(
   increaseQty,
   decreaseQty,
   removeFromCart,
+  clearCart,
   totalPrice
 }}
 
