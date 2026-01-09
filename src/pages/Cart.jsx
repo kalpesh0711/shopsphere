@@ -2,6 +2,15 @@ import { useContext } from "react";
 import { CartContext } from "../context/CartContext";
 import { Link } from "react-router-dom";
 
+const qtyBtnStyle = {
+  width: 32,
+  height: 32,
+  borderRadius: 4,
+  border: "1px solid #ccc",
+  background: "white",
+  cursor: "pointer"
+};
+
 const Cart = () => {
   const {
     cartItems,
@@ -21,27 +30,49 @@ const Cart = () => {
         <>
           {cartItems.map((item) => (
             <div
-              key={item.id}
-              style={{
-                border: "1px solid #ccc",
-                padding: 10,
-                marginBottom: 10
+             key={item.id}
+             style={{
+              border: "1px solid #e0e0e0",
+              padding: 16,
+              marginBottom: 16,
+              borderRadius: 8,
+              backgroundColor: "#fafafa"
               }}
-            >
+>
+  
               <h4>{item.title}</h4>
               <p>Price: ₹ {item.price}</p>
 
-              <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-                <button onClick={() => decreaseQty(item.id)}>-</button>
-                <span>Qty: {item.quantity}</span>
-                <button onClick={() => increaseQty(item.id)}>+</button>
+              <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+                <button style={qtyBtnStyle} onClick={() => decreaseQty(item.id)}>
+                    −
+                 </button>
+
+                 <strong>{item.quantity}</strong>
+
+                 <button style={qtyBtnStyle} onClick={() => increaseQty(item.id)}>
+                    +
+                 </button>
               </div>
+
 
               <p>Subtotal: ₹ {item.price * item.quantity}</p>
 
-              <button onClick={() => removeFromCart(item.id)}>
-                Remove
+              <button
+                onClick={() => removeFromCart(item.id)}
+                style={{
+                 marginTop: 10,
+                 background: "#ff4d4f",
+                 color: "white",
+                 border: "none",
+                 padding: "6px 12px",
+                 borderRadius: 4,
+                  cursor: "pointer"
+                }}
+              >
+               Remove
               </button>
+
             </div>
           ))}
 
@@ -51,9 +82,21 @@ const Cart = () => {
 
       
           <Link to="/checkout">
-            <button style={{ marginTop: 10 }}>
+            <button
+              style={{
+               marginTop: 20,
+               padding: "10px 16px",
+               fontSize: 16,
+               background: "#1677ff",
+               color: "white",
+               border: "none",
+               borderRadius: 6,
+               cursor: "pointer"
+             }}
+            >
               Proceed to Checkout
             </button>
+
           </Link>
         </>
       )}
