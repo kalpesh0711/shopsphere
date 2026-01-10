@@ -5,6 +5,8 @@ import Cart from "./pages/Cart";
 import Navbar from "./components/Navbar";
 import Checkout from "./pages/Checkout";
 import Success from "./pages/Success";
+import Address from "./pages/Address";
+
 
 function App() {
   return (
@@ -16,6 +18,8 @@ function App() {
         <Route path="/cart" element={<Cart />} />
         <Route path="/checkout" element={<Checkout />} />
         <Route path="/success" element={<Success />} />
+        <Route path="/address" element={<Address />} />
+
       </Routes>
     </BrowserRouter>
   );
