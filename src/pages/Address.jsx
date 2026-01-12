@@ -1,3 +1,4 @@
+import { DOM_KEY_LOCATION } from "@testing-library/user-event/dist/keyboard/types";
 import { useState } from "react";
 
 const Address = () => {
@@ -10,7 +11,7 @@ const Address = () => {
 
   const [errors,setErrors] = useState({}) ;
   const validate = () => {
-    const newErrors ={};
+    const newErrors ={};                           
 
     if (!address.name.trim()) {
       newErrors.name = "Name is required";
@@ -32,6 +33,7 @@ const Address = () => {
     <div style={{ padding: 20, maxWidth: 400 }}>
       <h2>Shipping Address</h2>
 
+      <label>Full Name</label>
       <input
         type="text"
         placeholder="Full Name"
@@ -46,10 +48,9 @@ const Address = () => {
       <p style={{ color: "red", fontSize: 14 }}>
         {errors.name}
       </p>
-      )}
+      )}  
 
-      
-
+      <label>Phone Number</label>
       <input
         type="text"
         placeholder="Phone Number"
@@ -66,6 +67,7 @@ const Address = () => {
       </p> 
       )}
 
+      <label>City</label>
       <input
         type="text"
         placeholder="City"
@@ -82,7 +84,7 @@ const Address = () => {
       </p>
       )}
 
-
+      <label>Street Address</label>
       <textarea
         placeholder="Street Address"
         value={address.street}
@@ -93,15 +95,38 @@ const Address = () => {
       />
 
       <button
-       onClick={validate}
-       style={{
-        marginTop: 10,
-        padding: "8px 14px"
-       } }
-      >
-       continue
+  onClick={validate}
+  disabled={
+    !address.name ||
+    !address.phone ||
+    !address.city
+  }
+  style={{
+    marginTop: 10,
+    padding: "8px 14px",
+    opacity:
+      !address.name ||
+      !address.phone ||
+      !address.city
+        ? 0.5
+        : 1
+  }}
+>
+  Continue
+</button>
 
-      </button>
+
+      {(address.name || address.phone || address.city || address.street) && (
+       <div style={{ marginTop: 20 }}>
+        <h3>Entered Address</h3>
+
+        <p><strong>Name:</strong> {address.name}</p>
+        <p><strong>Phone:</strong> {address.phone}</p>
+        <p><strong>City:</strong> {address.city}</p>
+        <p><strong>Street:</strong> {address.street}</p>
+       </div>
+      )}
+
 
     </div>
   );
