@@ -1,7 +1,9 @@
-import { DOM_KEY_LOCATION } from "@testing-library/user-event/dist/keyboard/types";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+
 
 const Address = () => {
+  const navigate = useNavigate();
   const [address, setAddress] = useState({
     name: "",
     phone: "",
@@ -11,28 +13,41 @@ const Address = () => {
 
   const [errors,setErrors] = useState({}) ;
   const validate = () => {
-    const newErrors ={};                           
+  const newErrors = {};
 
-    if (!address.name.trim()) {
-      newErrors.name = "Name is required";
-    }
+  if (!address.name.trim()) {
+    newErrors.name = "Name is required";
+  }
 
-    if (!address.phone.trim()) {
-      newErrors.phone = "Phone is required";
-    }
+  if (!address.phone.trim()) {
+    newErrors.phone = "Phone is required";
+  }
 
-    if (!address.city.trim()) {
-      newErrors.city = "City is required";
-    }
+  if (!address.city.trim()) {
+    newErrors.city = "City is required";
+  }
 
-    setErrors(newErrors);
+  setErrors(newErrors);
 
-  };
+  return Object.keys(newErrors).length === 0;
+};
+
+
+const handleContinue = () => {
+  const isValid = validate();
+
+  if (!isValid) return;
+
+  localStorage.setItem("address", JSON.stringify(address));
+  navigate("/checkout");
+};
+
 
   return (
     <div style={{ padding: 20, maxWidth: 400 }}>
       <h2>Shipping Address</h2>
-
+      
+      <form>
       <label>Full Name</label>
       <input
         type="text"
@@ -93,27 +108,27 @@ const Address = () => {
         }
         style={{ ...inputStyle, height: 80 }}
       />
-
+      </form> 
       <button
-  onClick={validate}
-  disabled={
-    !address.name ||
-    !address.phone ||
-    !address.city
-  }
-  style={{
-    marginTop: 10,
-    padding: "8px 14px",
-    opacity:
+     onClick={handleContinue}
+     disabled={
+     !address.name ||
+     !address.phone ||
+     !address.city
+     }
+     style={{
+     marginTop: 10,
+     padding: "8px 14px",
+     opacity:
       !address.name ||
       !address.phone ||
       !address.city
         ? 0.5
         : 1
-  }}
->
-  Continue
-</button>
+     }}
+    >
+    Continue
+    </button>
 
 
       {(address.name || address.phone || address.city || address.street) && (

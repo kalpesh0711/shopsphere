@@ -2,6 +2,9 @@ import { useContext } from "react";
 import { CartContext } from "../context/CartContext";
 import { useNavigate } from "react-router-dom";
 
+const storedAddress = localStorage.getItem("address");
+const address = storedAddress ? JSON.parse(storedAddress) : null;
+
 const Checkout = () => {
   const { cartItems, totalPrice, clearCart } = useContext(CartContext);
   const navigate = useNavigate();
@@ -18,6 +21,24 @@ const Checkout = () => {
   return (
     <div style={{ padding: 20 }}>
       <h2>Checkout</h2>
+
+      <div style={{ marginBottom: 20 }}>
+  <h3>Shipping Address</h3>
+
+  {address ? (
+    <>
+      <p><strong>Name:</strong> {address.name}</p>
+      <p><strong>Phone:</strong> {address.phone}</p>
+      <p><strong>City:</strong> {address.city}</p>
+      <p><strong>Street:</strong> {address.street}</p>
+    </>
+  ) : (
+    <p>No address found</p>
+  )}
+</div>
+
+<hr />
+
 
       {cartItems.map(item => (
         <div key={item.id}>
