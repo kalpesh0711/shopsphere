@@ -1,9 +1,13 @@
-import { Link } from "react-router-dom";
-import { useContext } from "react";
-import { CartContext } from "../context/CartContext";
+import { Link, useNavigate } from "react-router-dom";
 
 const Navbar = () => {
-  const { cartItems } = useContext(CartContext);
+  const navigate = useNavigate();
+  const isLoggedIn = localStorage.getItem("isLoggedIn");
+
+  const handleLogout = () => {
+    localStorage.removeItem("isLoggedIn");
+    navigate("/");
+  };
 
   return (
     <div style={{ display: "flex", justifyContent: "space-between", padding: 15 }}>
@@ -11,9 +15,13 @@ const Navbar = () => {
         <h2>ShopSphere</h2>
       </Link>
 
-      <Link to="/cart" style={{ textDecoration: "none" }}>
-        <h4>🛒 Cart ({cartItems.length})</h4>
-      </Link>
+      <div>
+        {isLoggedIn ? (
+          <button onClick={handleLogout}>Logout</button>
+        ) : (
+          <Link to="/login">Login</Link>
+        )}
+      </div>
     </div>
   );
 };

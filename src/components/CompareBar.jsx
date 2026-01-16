@@ -8,7 +8,7 @@ const CompareBar = ({ items }) => {
         borderTop: "2px solid #ddd",
         marginTop: "20px",
         padding: "15px",
-        background: "#fafafa"
+        background: "#fafafa"                              
       }}
     >
       <h3>Compare Products</h3>
