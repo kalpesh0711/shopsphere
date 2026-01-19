@@ -81,23 +81,25 @@ const Cart = () => {
           <h3>Total: ₹ {totalPrice}</h3>
 
       
+          {cartItems.length > 0 && (
           <Link to="/checkout">
-            <button
-              style={{
-               marginTop: 20,
-               padding: "10px 16px",
-               fontSize: 16,
-               background: "#1677ff",
-               color: "white",
-               border: "none",
-               borderRadius: 6,
-               cursor: "pointer"
-             }}
-            >
-              Proceed to Checkout
-            </button>
+          <button
+          style={{
+          marginTop: 20,
+          padding: "10px 16px",
+          fontSize: 16,
+          background: "#1677ff",
+          color: "white",
+          border: "none",
+          borderRadius: 6,
+          cursor: "pointer"
+          }}
+        >
+      Proceed to Checkout
+      </button>
+    </Link>
+      )}
 
-          </Link>
         </>
       )}
     </div>

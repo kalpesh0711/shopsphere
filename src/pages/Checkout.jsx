@@ -45,9 +45,30 @@ const Checkout = () => {
 
       <h3>Total: ₹ {totalPrice}</h3>
 
-      <button onClick={placeOrder} style={{ marginTop: 15 }}>
+       {!address && (
+        <p style={{ color: "red", marginTop: 10 }}>
+          Please add shipping address before placing order.
+        </p>
+        )}
+
+      <button
+        onClick={placeOrder}
+        disabled={!address}
+        style={{
+          marginTop: 15,
+          padding: "10px 16px",
+          fontSize: 16,
+          background: "#1677ff",
+          color: "white",
+          border: "none",
+          borderRadius: 6,
+          cursor: "pointer",
+          opacity: !address ? 0.5 : 1
+        }}
+      >
         Place Order
       </button>
+
     </div>
   );
 };

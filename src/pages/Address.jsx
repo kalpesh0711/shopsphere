@@ -1,9 +1,19 @@
-import { useState } from "react";
+import { useState, useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { CartContext } from "../context/CartContext";
+
 
 
 const Address = () => {
   const navigate = useNavigate();
+  const { cartItems } = useContext(CartContext);
+
+  useEffect(() => {
+  if (cartItems.length === 0) {
+    navigate("/");
+   }
+  }, [cartItems, navigate]);
+
   const [address, setAddress] = useState({
     name: "",
     phone: "",
