@@ -82,7 +82,7 @@ const Cart = () => {
 
       
           {cartItems.length > 0 && (
-          <Link to="/checkout">
+          <Link to="/address">
           <button
           style={{
           marginTop: 20,
@@ -95,7 +95,7 @@ const Cart = () => {
           cursor: "pointer"
           }}
         >
-      Proceed to Checkout
+      Proceed to Address
       </button>
     </Link>
       )}
