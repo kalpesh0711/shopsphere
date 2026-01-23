@@ -1,9 +1,21 @@
+import { useEffect, useRef } from "react";
+
 const CompareBar = ({ items }) => {
+  const compareRef = useRef(null);
+    useEffect(() => {
+    if (items.length >= 2) {
+      compareRef.current?.scrollIntoView({ behavior: "smooth" });
+    }
+  }, [items]);
+
+
+ 
   // Show nothing until 2 products are selected
   if (items.length < 2) return null;
 
   return (
     <div
+      ref={compareRef}
       style={{
         borderTop: "2px solid #ddd",
         marginTop: "20px",
