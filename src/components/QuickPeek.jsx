@@ -27,8 +27,8 @@ const QuickPeek = ({ product, onClose }) => {
       />
 
       <h3>{product.title}</h3>
-      <p><strong>Price:</strong> ₹ {product.price}</p>
-      <p><strong>Category:</strong> {product.category}</p>
+      <p><b>Price:</b> ₹ {product.price}</p>
+      <p><b>Category:</b> {product.category}</p>
       <p>{product.description}</p>
     </div>
   );
