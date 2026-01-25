@@ -145,10 +145,10 @@ const handleContinue = () => {
        <div style={{ marginTop: 20 }}>
         <h3>Entered Address</h3>
 
-        <p><strong>Name:</strong> {address.name}</p>
-        <p><strong>Phone:</strong> {address.phone}</p>
-        <p><strong>City:</strong> {address.city}</p>
-        <p><strong>Street:</strong> {address.street}</p>
+        <p><b>Name:</b> {address.name}</p>
+        <p><b>Phone:</b> {address.phone}</p>
+        <p><b>City:</b> {address.city}</p>
+        <p><b>Street:</b> {address.street}</p>
        </div>
       )}
 
@@ -162,7 +162,7 @@ const inputStyle = {
   padding: 10,
   marginBottom: 12,
   borderRadius: 6,
-  border: "1px solid #ccc"
+  border: "1px solid #ccccccef"
 };
 
 
