@@ -48,7 +48,7 @@ const Cart = () => {
                     −
                  </button>
 
-                 <strong>{item.quantity}</strong>
+                 <b>{item.quantity}</b>
 
                  <button style={qtyBtnStyle} onClick={() => increaseQty(item.id)}>
                     +
@@ -88,7 +88,7 @@ const Cart = () => {
           marginTop: 20,
           padding: "10px 16px",
           fontSize: 16,
-          background: "#1677ff",
+          background: "#1677ffe6",
           color: "white",
           border: "none",
           borderRadius: 6,
