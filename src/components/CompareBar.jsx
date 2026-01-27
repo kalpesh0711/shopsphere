@@ -17,10 +17,10 @@ const CompareBar = ({ items }) => {
     <div
       ref={compareRef}
       style={{
-        borderTop: "2px solid #ddd",
+        borderTop: "2px solid #ddddddea",
         marginTop: "20px",
         padding: "15px",
-        background: "#fafafa"                              
+        background: "#fafafaec"                              
       }}
     >
       <h3>Compare Products</h3>
