@@ -29,9 +29,9 @@ const CompareBar = ({ items }) => {
         {items.map(item => (
           <div key={item.id} style={{ width: "45%" }}>
             <h4>{item.title}</h4>
-            <p><strong>Price:</strong> ₹ {item.price}</p>
-            <p><strong>Category:</strong> {item.category}</p>
-            <p><strong>Rating:</strong> ⭐ {item.rating?.rate}</p>
+            <p><b>Price:</b> ₹ {item.price}</p>
+            <p><b>Category:</b> {item.category}</p>
+            <p><b>Rating:</b> ⭐ {item.rating?.rate}</p>
           </div>
         ))}
       </div>
