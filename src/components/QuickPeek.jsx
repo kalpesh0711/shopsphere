@@ -1,35 +1,22 @@
 const QuickPeek = ({ product, onClose }) => {
-  // If no product is selected, render nothing
-  if (!product) return null;
-
   return (
-    <div
-      style={{
-        position: "fixed",
-        top: 0,
-        right: 0,
-        width: "320px",
-        height: "100%",
-        backgroundColor: "#ffffffd6",
-        borderLeft: "1px solid #dddddde5",
-        padding: "20px",
-        boxShadow: "-2px 0 8px rgba(0,0,0,0.1)",
-        zIndex: 1000,
-      }}
-    >
-      <button onClick={onClose}>Close</button>
+    <div className="quickpeek-overlay">
+      <div className="quickpeek-modal">
+        <button className="close-btn" onClick={onClose}>
+          ✖
+        </button>
 
-      <img
-        src={product.image}
-        alt={product.title}
-        width="120"
-        style={{ marginTop: "10px" }}
-      />
+        <div className="quickpeek-content">
+          <img src={product.image} alt={product.title} />
 
-      <h3>{product.title}</h3>
-      <p><b>Price:</b> ₹ {product.price}</p>
-      <p><b>Category:</b> {product.category}</p>
-      <p>{product.description}</p>
+          <div className="quickpeek-details">
+            <h2>{product.title}</h2>
+            <h3>₹ {product.price}</h3>
+            <p><strong>Category:</strong> {product.category}</p>
+            <p>{product.description}</p>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };

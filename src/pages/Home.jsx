@@ -14,7 +14,7 @@ const Home = () => {
   const [compareList, setCompareList] = useState([]);
 
   useEffect(() => {
-    fetchProducts().then(data => {
+    fetchProducts().then((data) => {
       setProducts(data);
       setLoading(false);
     });
@@ -22,9 +22,9 @@ const Home = () => {
 
   const toggleCompare = (product) => {
     setCompareList((prev) => {
-      const exists = prev.find(p => p.id === product.id);
+      const exists = prev.find((p) => p.id === product.id);
 
-      if (exists) return prev.filter(p => p.id !== product.id);
+      if (exists) return prev.filter((p) => p.id !== product.id);
       if (prev.length === 2) {
         alert("You can compare only 2 products");
         return prev;
@@ -33,49 +33,58 @@ const Home = () => {
     });
   };
 
-  if (loading) return <h3>Loading products...</h3>;
+  if (loading) return <h3 style={{ padding: "20px" }}>Loading products...</h3>;
 
-  const filteredProducts = products.filter(product => {
+  const filteredProducts = products.filter((product) => {
     const matchesSearch = product.title
       .toLowerCase()
       .includes(search.toLowerCase());
+
     const matchesCategory =
       category === "all" || product.category === category;
+
     return matchesSearch && matchesCategory;
   });
 
   return (
     <div>
-      <input
-        type="text"
-        placeholder="Search products..."
-        value={search}
-        onChange={(e) => setSearch(e.target.value)}
-      />
-
-      <select
-        value={category}
-        onChange={(e) => setCategory(e.target.value)}
-      >
-        <option value="all">All</option>
-        <option value="men's clothing">Men</option>
-        <option value="women's clothing">Women</option>
-        <option value="electronics">Electronics</option>
-        <option value="jewelery">Jewellery</option>
-      </select>
-
-      {filteredProducts.map(product => (
-        <ProductCard
-          key={product.id}
-          product={product}
-          onQuickView={(p) => {
-            setPreviewProduct(p);
-            setIsPreviewOpen(true);
-          }}
-          onCompare={toggleCompare}
+      {/* Search Section */}
+      <div className="search-section">
+        <input
+          type="text"
+          placeholder="Search products..."
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
         />
-      ))}
 
+        <select
+          value={category}
+          onChange={(e) => setCategory(e.target.value)}
+        >
+          <option value="all">All</option>
+          <option value="men's clothing">Men</option>
+          <option value="women's clothing">Women</option>
+          <option value="electronics">Electronics</option>
+          <option value="jewelery">Jewellery</option>
+        </select>
+      </div>
+
+      {/* Products Grid */}
+      <div className="products-container">
+        {filteredProducts.map((product) => (
+          <ProductCard
+            key={product.id}
+            product={product}
+            onQuickView={(p) => {
+              setPreviewProduct(p);
+              setIsPreviewOpen(true);
+            }}
+            onCompare={toggleCompare}
+          />
+        ))}
+      </div>
+
+      {/* Quick View Modal */}
       {isPreviewOpen && (
         <QuickPeek
           product={previewProduct}
@@ -83,6 +92,7 @@ const Home = () => {
         />
       )}
 
+      {/* Compare Bar */}
       <CompareBar items={compareList} />
     </div>
   );

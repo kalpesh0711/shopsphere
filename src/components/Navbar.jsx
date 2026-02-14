@@ -12,27 +12,17 @@ const Navbar = () => {
   };
 
   return (
-    <div
-      style={{
-        display: "flex",
-        justifyContent: "space-between",
-        alignItems: "center",
-        padding: "12px 20px",
-        borderBottom: "1px solid #ddd"
-      }}
-    >
-      {/* Logo */}
-      <Link to="/" style={{ textDecoration: "none" }}>
-        <h2>ShopSphere</h2>
+    <div className="navbar">
+      <Link to="/" className="logo" style={{ textDecoration: "none" }}>
+        ShopSphere
       </Link>
 
-      {/* Right side actions */}
-      <div style={{ display: "flex", gap: 16, alignItems: "center" }}>
+      <div className="nav-right">
         <Link to="/cart">
           🛒 Cart ({cartItems.length})
         </Link>
 
-        <button onClick={handleLogout}>
+        <button className="logout-btn" onClick={handleLogout}>
           Logout
         </button>
       </div>

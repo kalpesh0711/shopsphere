@@ -5,22 +5,39 @@ const ProductCard = ({ product, onQuickView, onCompare }) => {
   const { addToCart } = useContext(CartContext);
 
   return (
-    <div style={{ border: "1px solid #ccc", padding: 10, margin: 10 }}>
-      <img src={product.image} alt={product.title} width="80" />
-      <h4>{product.title}</h4>
-      <p>₹ {product.price}</p>
+    <div className="product-card">
+      <img src={product.image} alt={product.title} />
 
-      <button onClick={() => onQuickView(product)}>
-        Quick View
-      </button>
+      <div className="product-title">
+        {product.title}
+      </div>
 
-      <button onClick={() => onCompare(product)}>
-        Compare
-      </button>
+      <div className="product-price">
+        ₹ {product.price}
+      </div>
 
-      <button onClick={() => addToCart(product)}>
-        Add to Cart
-      </button>
+      <div className="product-buttons">
+        <button
+          className="quick-btn"
+          onClick={() => onQuickView(product)}
+        >
+          Quick View
+        </button>
+
+        <button
+          className="compare-btn"
+          onClick={() => onCompare(product)}
+        >
+          Compare
+        </button>
+
+        <button
+          className="cart-btn"
+          onClick={() => addToCart(product)}
+        >
+          Add to Cart
+        </button>
+      </div>
     </div>
   );
 };
