@@ -41,7 +41,30 @@ const getProductById = (req, res) => {
   res.json(product);
 };
 
+// create new product
+const createProduct = (req,res) => {
+  const {title,price,category } = req.body;
+
+  if (!title || !price) {
+    return res.status(404).json({message: "Title and price are required"});
+  }
+
+  const newProduct = {
+    id: Date.now(), //temporary unique id
+    title,
+    price,
+    category: category || "General" ,
+    rating: {rate:0},
+  };
+
+  products.push(newProduct);
+
+  res.status(201).json(newProduct);
+};
+
+
 module.exports = {
   getProducts,
   getProductById,
+  createProduct,
 };
