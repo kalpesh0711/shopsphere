@@ -19,6 +19,10 @@ app.get("/", (req, res) => {
   res.send("Shopsphere Backend Running");
 });
 
+const { errorHandler } = require("./middleware/errorMiddleware");
+
+app.use(errorHandler);
+
 // Port
 const PORT = process.env.PORT || 5000;
 

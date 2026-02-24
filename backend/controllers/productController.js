@@ -5,18 +5,9 @@ const getProducts = async (req, res) => {
   try {
     const products = await Product.find();
     res.json(products);
-  } catch (error) { 
-    res.status(500).json({ message: "Server error" });
-  }
-};
-
-// CREATE product
-const createProduct = async (req, res) => {
-  try {
-    const product = await Product.create(req.body);
-    res.status(201).json(product);
   } catch (error) {
-    res.status(400).json({ message: "Invalid product data" });
+    res.status(500);
+    throw new Error("Failed to fetch products");
   }
 };
 
@@ -26,12 +17,25 @@ const getProductById = async (req, res) => {
     const product = await Product.findById(req.params.id);
 
     if (!product) {
-      return res.status(404).json({ message: "Product not found" });
+      res.status(404);
+      throw new Error("Product not found");
     }
 
     res.json(product);
   } catch (error) {
-    res.status(400).json({ message: "Invalid product ID" });
+    res.status(400);
+    throw new Error("Invalid product ID");
+  }
+};
+
+// CREATE product
+const createProduct = async (req, res) => {
+  try {
+    const product = await Product.create(req.body);
+    res.status(201).json(product);
+  } catch (error) {
+    res.status(400);
+    throw new Error("Invalid product data");
   }
 };
 
@@ -45,12 +49,14 @@ const updateProduct = async (req, res) => {
     );
 
     if (!updatedProduct) {
-      return res.status(404).json({ message: "Product not found" });
+      res.status(404);
+      throw new Error("Product not found");
     }
 
     res.json(updatedProduct);
   } catch (error) {
-    res.status(400).json({ message: "Invalid update data" });
+    res.status(400);
+    throw new Error("Invalid update data");
   }
 };
 
@@ -60,12 +66,14 @@ const deleteProduct = async (req, res) => {
     const deletedProduct = await Product.findByIdAndDelete(req.params.id);
 
     if (!deletedProduct) {
-      return res.status(404).json({ message: "Product not found" });
+      res.status(404);
+      throw new Error("Product not found");
     }
 
     res.json({ message: "Product deleted successfully" });
   } catch (error) {
-    res.status(500).json({ message: "Server error" });
+    res.status(500);
+    throw new Error("Server error while deleting product");
   }
 };
 
