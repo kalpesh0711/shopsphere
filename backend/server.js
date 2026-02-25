@@ -5,6 +5,9 @@ require("dotenv").config();
 const connectDB = require("./config/db");   // ADD THIS
 const productRoutes = require("./routes/productRoutes");
 
+const authRoutes = require("./routes/authRoutes");
+app.use("/api/auth", authRoutes);
+
 const app = express();
 
 // CONNECT DATABASE
@@ -22,6 +25,9 @@ app.get("/", (req, res) => {
 const { errorHandler } = require("./middleware/errorMiddleware");
 
 app.use(errorHandler);
+
+
+
 
 // Port
 const PORT = process.env.PORT || 5000;
