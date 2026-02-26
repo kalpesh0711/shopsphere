@@ -34,4 +34,47 @@ const registerUser = async (req, res) => {
   }
 };
 
+// LOGIN
+const loginUser = async (req, res) => {
+  const { email, password } = req.body;
+
+  try {
+    const user = await User.findOne({ email });
+
+    if (!user) {
+      res.status(400);
+      throw new Error("Invalid email or password");
+    }
+
+    const isMatch = await bcrypt.compare(password, user.password);
+
+    if (!isMatch) {
+      res.status(400);
+      throw new Error("Invalid email or password");
+    }
+
+    const token = jwt.sign(
+      { id: user._id },
+      process.env.JWT_SECRET,
+      { expiresIn: "1d" }
+    );
+
+    res.json({
+      _id: user._id,
+      name: user.name,
+      email: user.email,
+      token,
+    });
+
+  } catch (error) {
+    res.status(400);
+    throw new Error(error.message);
+  }
+};
+
+module.exports = {
+  registerUser,
+  loginUser,
+};
+
 module.exports = { registerUser };
