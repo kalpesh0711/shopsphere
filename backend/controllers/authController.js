@@ -77,4 +77,3 @@ module.exports = {
   loginUser,
 };
 
-module.exports = { registerUser };

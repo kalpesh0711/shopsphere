@@ -5,10 +5,12 @@ require("dotenv").config();
 const connectDB = require("./config/db");   // ADD THIS
 const productRoutes = require("./routes/productRoutes");
 
-const authRoutes = require("./routes/authRoutes");
-app.use("/api/auth", authRoutes);
+
 
 const app = express();
+
+const authRoutes = require("./routes/authRoutes");
+app.use("/api/auth", authRoutes);
 
 // CONNECT DATABASE
 connectDB();
