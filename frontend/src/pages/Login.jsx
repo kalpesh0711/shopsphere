@@ -1,11 +1,14 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate,useLocation } from "react-router-dom";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
+
+  const location = useLocation();
+  const from = location.state?.from || "/";
 
   const handleLogin = async () => {
     if (!email || !password) {
@@ -37,7 +40,7 @@ const Login = () => {
       localStorage.setItem("user", JSON.stringify(data));
 
       setLoading(false);
-      navigate("/");
+      navigate(from);
     } catch (error) {
       console.error("Login error:", error);
       alert("Something went wrong");

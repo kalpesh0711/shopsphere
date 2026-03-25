@@ -1,6 +1,8 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { CartContext } from "../context/CartContext";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { getCart } from "../api/cart";
 
 const qtyBtnStyle = {
   width: 32,
@@ -12,8 +14,29 @@ const qtyBtnStyle = {
 };
 
 const Cart = () => {
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+
+    if (!token) {
+      navigate("/login", { state: { from: "/cart" } });
+    }
+  }, [navigate]);
+
+  useEffect(() => {
+  const fetchCart = async () => {
+    const res = await getCart();
+    setCartItems(res.data.items || []);
+  };
+
+  fetchCart();
+}, []);
+
   const {
     cartItems,
+    setCartItems,
     increaseQty,
     decreaseQty,
     removeFromCart,
@@ -30,7 +53,7 @@ const Cart = () => {
         <>
           {cartItems.map((item) => (
             <div
-             key={item.id}
+             key={item._id}
              style={{
               border: "1px solid #e0e0e0",
               padding: 16,
@@ -40,26 +63,26 @@ const Cart = () => {
               }}
 >
   
-              <h4>{item.title}</h4>
-              <p>Price: ₹ {item.price}</p>
+              <h4>{item.productId.title}</h4>
+              <p>Price: ₹ {item.productId.price}</p>
 
               <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-                <button style={qtyBtnStyle} onClick={() => decreaseQty(item.id)}>
+                <button style={qtyBtnStyle} onClick={() => decreaseQty(item.productId._id)}>
                     −
                  </button>
 
                  <b>{item.quantity}</b>
 
-                 <button style={qtyBtnStyle} onClick={() => increaseQty(item.id)}>
+                 <button style={qtyBtnStyle} onClick={() => increaseQty(item.productId._id)}>
                     +
                  </button>
               </div>
 
 
-              <p>Subtotal: ₹ {item.price * item.quantity}</p>
+              <p>Subtotal: ₹ {item.productId.price * item.quantity}</p>
 
               <button
-                onClick={() => removeFromCart(item.id)}
+                onClick={() => removeFromCart(item.productId._id)}
                 style={{
                  marginTop: 10,
                  background: "#ff4d4f",

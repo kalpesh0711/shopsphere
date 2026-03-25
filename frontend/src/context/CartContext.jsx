@@ -20,11 +20,11 @@ const CartProvider = ({ children }) => {
 
   const addToCart = (product) => {
   setCartItems((prev) => {
-    const exists = prev.find(item => item.id === product.id);
+    const exists = prev.find(item => item.id === product._id);
 
     if (exists) {
       return prev.map(item =>
-        item.id === product.id
+        item.id === product._id
           ? { ...item, quantity: item.quantity + 1 }
           : item
       );
@@ -37,7 +37,7 @@ const CartProvider = ({ children }) => {
   const increaseQty = (id) => {
   setCartItems((prev) =>
     prev.map(item =>
-      item.id === id
+      item._id === id
         ? { ...item, quantity: item.quantity + 1 }
         : item
     )
@@ -48,7 +48,7 @@ const decreaseQty = (id) => {
   setCartItems((prev) =>
     prev
       .map(item =>
-        item.id === id
+        item._id === id
           ? { ...item, quantity: item.quantity - 1 }
           : item
       )
@@ -62,7 +62,7 @@ const totalPrice = cartItems.reduce(
 );
 
   const removeFromCart = (id) => {
-  setCartItems((prev) => prev.filter(item => item.id !== id));
+  setCartItems((prev) => prev.filter(item => item._id !== id));
 };
 
 const clearCart = () => {

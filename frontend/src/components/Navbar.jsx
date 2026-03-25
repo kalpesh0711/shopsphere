@@ -7,8 +7,9 @@ const Navbar = () => {
   const { cartItems } = useContext(CartContext);
 
   const handleLogout = () => {
-    localStorage.removeItem("isLoggedIn");
-    navigate("/");
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+    navigate("/login");
   };
 
   return (

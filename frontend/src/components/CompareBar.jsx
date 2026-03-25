@@ -27,7 +27,7 @@ const CompareBar = ({ items }) => {
 
       <div style={{ display: "flex", gap: "20px" }}>
         {items.map(item => (
-          <div key={item.id} style={{ width: "45%" }}>
+          <div key={item._id} style={{ width: "45%" }}>
             <h4>{item.title}</h4>
             <p><b>Price:</b> ₹ {item.price}</p>
             <p><b>Category:</b> {item.category}</p>

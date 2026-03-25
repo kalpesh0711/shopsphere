@@ -22,9 +22,9 @@ const Home = () => {
 
   const toggleCompare = (product) => {
     setCompareList((prev) => {
-      const exists = prev.find((p) => p.id === product.id);
+      const exists = prev.find((p) => p._id === product._id);
 
-      if (exists) return prev.filter((p) => p.id !== product.id);
+      if (exists) return prev.filter((p) => p._id !== product._id);
       if (prev.length === 2) {
         alert("You can compare only 2 products");
         return prev;
@@ -36,12 +36,12 @@ const Home = () => {
   if (loading) return <h3 style={{ padding: "20px" }}>Loading products...</h3>;
 
   const filteredProducts = products.filter((product) => {
-    const matchesSearch = product.title
-      .toLowerCase()
+    const matchesSearch = (product.title || "").toLowerCase()
       .includes(search.toLowerCase());
 
     const matchesCategory =
-      category === "all" || product.category === category;
+      category === "all" ||
+     (product.category || "").toLowerCase() === category.toLowerCase();
 
     return matchesSearch && matchesCategory;
   });
@@ -61,11 +61,11 @@ const Home = () => {
           value={category}
           onChange={(e) => setCategory(e.target.value)}
         >
-          <option value="all">All</option>
-          <option value="men's clothing">Men</option>
-          <option value="women's clothing">Women</option>
-          <option value="electronics">Electronics</option>
-          <option value="jewelery">Jewellery</option>
+         <option value="all">All</option>
+         <option value="Men">Men</option>
+         <option value="Women">Women</option>
+         <option value="Electronics">Electronics</option>
+         <option value="Jewellery">Jewellery</option>
         </select>
       </div>
 

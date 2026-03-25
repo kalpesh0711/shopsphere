@@ -6,7 +6,7 @@ const ProductCard = ({ product, onQuickView, onCompare }) => {
 
   return (
     <div className="product-card">
-      <img src={product.image} alt={product.title} />
+      <img src={product.image || "https://via.placeholder.com/150"} alt={product.title} />
 
       <div className="product-title">
         {product.title}
